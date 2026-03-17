@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant.name }} Menu</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="menu-page">
+    <h1>{{ restaurant.name }}</h1>
+    <p>⭐ {{ restaurant.rating }} | {{ restaurant.cuisine }}</p>
+
+    <div class="food-grid">
+        {% for f in foods %}
+        <div class="food-card">
+            {% if f.image %}
+            <img src="{{ f.image }}" alt="{{ f.name }}">
+            {% endif %}
+            <h3>{{ f.name }}</h3>
+            <p>₹ {{ f.price }}</p>
+            <a class="cart-btn" href="{% url 'add_to_cart' f.id %}">Add to Cart</a>
+        </div>
+        {% empty %}
+        <p>No foods available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

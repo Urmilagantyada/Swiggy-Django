@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Swiggy Clone</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="hero-section">
+    <h1>Order food & groceries. Discover best restaurants. Swiggy it!</h1>
+
+    <form method="get" class="search-box">
+        <input type="text" name="location" placeholder="Enter delivery location">
+        <input type="text" name="q" placeholder="Search for restaurant, item or more" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% include 'cards.html' %}
+
+<div class="restaurants-section">
+    <h2>Restaurants with online food delivery</h2>
+
+    <div class="restaurant-grid">
+        {% for r in restaurants %}
+        <div class="restaurant-card">
+            <img src="{{ r.image }}" alt="{{ r.name }}">
+            <div class="restaurant-body">
+                <h3>{{ r.name }}</h3>
+                <p>⭐ {{ r.rating }}</p>
+                <p>{{ r.cuisine }}</p>
+                <p>{{ r.delivery_time }} mins</p>
+                <a class="view-menu-btn" href="{% url 'menu' r.id %}">View Menu</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No restaurants found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
